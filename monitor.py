@@ -117,11 +117,6 @@ def print_ping_comparison(host: str, count: int):
 
         diff = tcp_avg - ping_avg
         print(f"\n  Diferença média (TCP − ICMP): {diff:+.3f} ms")
-        print(
-            "  Nota: RTT TCP inclui o tempo de processamento do SYN-ACK no\n"
-            "  kernel local, por isso tende a ser ligeiramente maior que o\n"
-            "  RTT ICMP puro."
-        )
     else:
         print(f"  TCP  eBPF  → nenhuma amostra capturada para {target_ip}")
         print(
