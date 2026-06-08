@@ -55,12 +55,13 @@ int trace_tcp_connect(struct pt_regs *ctx)
 // e preencheu skc_rcv_saddr.
 int trace_tcp_connect_ret(struct pt_regs *ctx)
 {
+    u64 pid_tgid = bpf_get_current_pid_tgid();
+    
     // Se tcp_v4_connect retornou erro, ignora
     int ret = PT_REGS_RC(ctx);
     if (ret != 0)
         goto cleanup;
 
-    u64 pid_tgid = bpf_get_current_pid_tgid();
     u64 *sk_ptr = sock_store.lookup(&pid_tgid);
     if (sk_ptr == 0)
         goto cleanup;
